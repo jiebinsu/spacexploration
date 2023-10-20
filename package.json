@@ -7,9 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "prettier --write . && next lint",
-    "test": "jest"
+    "test": "jest",
+    "test:e2e": "npx playwright install chromium --with-deps && npx playwright test",
+    "test:e2e:ui": "npx playwright test --ui"
   },
   "dependencies": {
+    "@playwright/test": "^1.39.0",
     "@prismane/core": "^1.2.1",
     "axios": "^1.5.1",
     "next": "^13.5.6",
