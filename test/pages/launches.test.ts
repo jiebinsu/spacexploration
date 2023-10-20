@@ -93,7 +93,7 @@ describe('/launches endpoint', () => {
         rocketName: 'Rocket 1',
         launchpadName: 'Launchpad 1',
         details: 'Details 1',
-        date: new Date('2021-01-01T00:00:00.000Z'),
+        date: '2021-01-01T00:00:00.000Z',
         success: true,
       },
       {
@@ -102,7 +102,7 @@ describe('/launches endpoint', () => {
         rocketName: 'Rocket 2',
         launchpadName: 'Launchpad 2',
         details: 'Details 2',
-        date: new Date('2021-01-02T00:00:00.000Z'),
+        date: '2021-01-02T00:00:00.000Z',
         success: false,
       },
     ];
@@ -150,7 +150,7 @@ describe('/launches endpoint', () => {
         rocketName: 'Unknown',
         launchpadName: 'Launchpad 1',
         details: 'Details 1',
-        date: new Date('2021-01-01T00:00:00.000Z'),
+        date: '2021-01-01T00:00:00.000Z',
         success: true,
       },
     ];
@@ -190,7 +190,7 @@ describe('/launches endpoint', () => {
         rocketName: 'Rocket 1',
         launchpadName: 'Unknown',
         details: 'Details 1',
-        date: new Date('2021-01-01T00:00:00.000Z'),
+        date: '2021-01-01T00:00:00.000Z',
         success: true,
       },
     ];
@@ -232,7 +232,7 @@ describe('/launches endpoint', () => {
         rocketName: 'Unknown',
         launchpadName: 'Unknown',
         details: 'Details 1',
-        date: new Date('2021-01-01T00:00:00.000Z'),
+        date: '2021-01-01T00:00:00.000Z',
         success: true,
       },
     ];

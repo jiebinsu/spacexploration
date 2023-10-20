@@ -3,7 +3,11 @@ import { transformResponse } from './util';
 import { getEnv } from '@/env';
 import { logger } from '@/logger';
 
-export const getLaunches = async (page: number = 1, limit: number = 10): Promise<SpaceXLaunchesResponse['docs']> => {
+export const getLaunches = async (
+  page: number = 1,
+  limit: number = 10,
+  sort: 'asc' | 'desc' = 'asc',
+): Promise<SpaceXLaunchesResponse['docs']> => {
   const { SPACEX_API_BASE_URL } = getEnv();
   const body = {
     query: {
@@ -14,7 +18,7 @@ export const getLaunches = async (page: number = 1, limit: number = 10): Promise
       page,
       limit,
       sort: {
-        date_utc: 'desc',
+        date_utc: sort,
       },
     },
   };

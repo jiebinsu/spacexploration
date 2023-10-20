@@ -2,6 +2,7 @@
  * @jest-environment node
  */
 
+import axios from 'axios';
 import { getLaunchPadNamesById, getLaunches, getRocketNamesById } from '@/services/spacex';
 import nock from 'nock';
 
@@ -66,6 +67,60 @@ describe('SpaceX Service', () => {
       nockErrorResponse('/launches/query', statusCode, 'Any error msg');
 
       await expect(getLaunches()).rejects.toThrow(`Request failed with status code ${statusCode}`);
+    });
+
+    it('calls external api with default params', async () => {
+      const spy = jest.spyOn(axios, 'post');
+      nockSuccessfulResponse('/launches/query', []);
+
+      await getLaunches();
+
+      const expectedUrl = `${process.env.SPACEX_API_BASE_URL}/launches/query`;
+      const expectedParams = {
+        query: {
+          upcoming: false,
+        },
+        options: {
+          limit: 10,
+          page: 1,
+          select: 'name rocket launchpad details date_utc success',
+          sort: {
+            date_utc: 'asc',
+          },
+        },
+      };
+      expect(spy).toHaveBeenCalledWith(expectedUrl, expectedParams);
+      spy.mockRestore();
+    });
+
+    it.each([
+      [1, 10, 'asc'],
+      [1, 10, 'desc'],
+      [2, 10, 'asc'],
+      [1, 5, 'asc'],
+      [4, 5, 'desc'],
+    ])('calls external api with correct params', async (page, limit, sort) => {
+      const spy = jest.spyOn(axios, 'post');
+      nockSuccessfulResponse('/launches/query', []);
+
+      await getLaunches(page, limit, sort as 'asc' | 'desc');
+
+      const expectedUrl = `${process.env.SPACEX_API_BASE_URL}/launches/query`;
+      const expectedParams = {
+        query: {
+          upcoming: false,
+        },
+        options: {
+          limit,
+          page,
+          select: 'name rocket launchpad details date_utc success',
+          sort: {
+            date_utc: sort,
+          },
+        },
+      };
+      expect(spy).toHaveBeenCalledWith(expectedUrl, expectedParams);
+      spy.mockRestore();
     });
   });
 
